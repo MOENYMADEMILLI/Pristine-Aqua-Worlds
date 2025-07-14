@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - Pristine Aqua Worlds</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h2>Welcome, <span id="usernameDisplay">Customer!</span></h2>
+                <p>Here you can track your aquarium's health, service history, and upcoming appointments.</p>
+            </div>
+        </section>
+
+        <section class="service-detail-page-content container">
+            <h3>Your Aquarium Details</h3>
+            <div id="aquariumDetails" class="detail-overview">
+                <p>Loading aquarium data...</p>
+            </div>
+
+            <h3>Service History</h3>
+            <div id="serviceHistory" class="detail-overview">
+                <p>Loading service history...</p>
+            </div>
+
+            <button id="logoutBtn" class="btn secondary-btn" style="margin-top: 40px;">Logout</button>
+        </section>
+    </main>
+
+    <footer>
+        </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            const usernameDisplay = document.getElementById('usernameDisplay');
+            const aquariumDetails = document.getElementById('aquariumDetails');
+            const serviceHistory = document.getElementById('serviceHistory');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (!token) {
+                // If no token, redirect to login page
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/customer/me', {
+                    method: 'GET',
+                    headers: {
+                        'x-auth-token': token // Send JWT in header
+                    }
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    if (data.msg === 'No customer data found for this user. Please create one.') {
+                        aquariumDetails.innerHTML = '<p>No aquarium data found yet. Please contact us to set up your tank profile!</p>';
+                    } else {
+                        usernameDisplay.textContent = data.user.username || 'Customer'; // Assuming username is returned on auth
+                        aquariumDetails.innerHTML = `
+                            <h4>${data.tankName || 'Your Primary Tank'}</h4>
+                            <p><strong>Size:</strong> ${data.tankSize || 'N/A'} Gallons</p>
+                            <p><strong>Type:</strong> ${data.tankType || 'N/A'}</p>
+                            <p><strong>Last Service:</strong> ${data.lastServiceDate ? new Date(data.lastServiceDate).toLocaleDateString() : 'N/A'}</p>
+                            <p><strong>Next Service:</strong> ${data.nextServiceDate ? new Date(data.nextServiceDate).toLocaleDateString() : 'N/A'}</p>
+                            <p><strong>Notes:</strong> ${data.notes || 'No specific notes.'}</p>
+                            `;
+
+                        if (data.serviceHistory && data.serviceHistory.length > 0) {
+                            serviceHistory.innerHTML = '<h4>Past Services</h4>';
+                            data.serviceHistory.forEach(service => {
+                                serviceHistory.innerHTML += `
+                                    <p><strong>Date:</strong> ${new Date(service.date).toLocaleDateString()} - <strong>Type:</strong> ${service.serviceType}</p>
+                                    <p>Description: ${service.description}</p>
+                                    <p>Cost: $${service.cost}</p>
+                                    <hr>
+                                `;
+                            });
+                        } else {
+                            serviceHistory.innerHTML = '<p>No service history recorded yet.</p>';
+                        }
+                    }
+
+                } else {
+                    // Token invalid or other error, redirect to login
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                }
+            } catch (err) {
+                console.error('Error fetching dashboard data:', err);
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            }
+
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            });
+        });
+    </script>
+</body>
+</html>

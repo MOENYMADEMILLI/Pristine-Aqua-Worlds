@@ -1,0 +1,39 @@
+# Node.js
+node_modules/
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# macOS
+.DS_Store
+
+# OS generated files
+.localized
+Thumbs.db
+
+# Build artifacts (if you ever use a build step for frontend)
+dist/
+build/
+
+# Logs
+*.log
+logs/
+
+# Local MongoDB (if you use it locally)
+data/db/
+log/mongodb/
+
+# Environment-specific files (e.g., test databases)
+*.sqlite
+*.sqlite3
+
+# Any other local temporary files you don't want tracked

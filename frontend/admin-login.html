@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Pristine Aqua Worlds</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Pristine Aqua Worlds Logo">
+                    <h1>Pristine Aqua Worlds</h1>
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h2>Admin Login</h2>
+                <p>Authorized access only. Please log in to the administration panel.</p>
+            </div>
+        </section>
+
+        <section class="contact-section container">
+            <div class="contact-form-container">
+                <h3>Admin Panel Access</h3>
+                <form id="adminLoginForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <button type="submit" class="btn primary-btn">Login as Admin</button>
+                    <p id="adminLoginMessage" style="color: red; text-align: center; margin-top: 10px;"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            const adminLoginMessage = document.getElementById('adminLoginMessage');
+
+            adminLoginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                try {
+                    const res = await fetch('/api/auth/login', { // Use the standard login endpoint
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const data = await res.json();
+
+                    if (res.ok) {
+                        // After successful login, verify admin status
+                        const checkAdminRes = await fetch('/api/admin/dashboard-stats', { // Access an admin-only endpoint
+                            method: 'GET',
+                            headers: {
+                                'x-auth-token': data.token
+                            }
+                        });
+
+                        if (checkAdminRes.ok) {
+                            localStorage.setItem('adminToken', data.token); // Store admin token
+                            adminLoginMessage.style.color = 'green';
+                            adminLoginMessage.textContent = 'Admin login successful! Redirecting...';
+                            window.location.href = 'admin-dashboard.html'; // Redirect to admin dashboard
+                        } else {
+                            // User is not an admin, even if login successful
+                            adminLoginMessage.style.color = 'red';
+                            adminLoginMessage.textContent = 'Access denied: You are not an administrator.';
+                            localStorage.removeItem('token'); // Remove any regular user token
+                        }
+                    } else {
+                        adminLoginMessage.style.color = 'red';
+                        adminLoginMessage.textContent = data.msg || 'Login failed. Invalid credentials.';
+                    }
+                } catch (err) {
+                    console.error('Error during admin login:', err);
+                    adminLoginMessage.style.color = 'red';
+                    adminLoginMessage.textContent = 'An error occurred. Please try again later.';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

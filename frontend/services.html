@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An aquatic worlds dream services and setups! If you've been looking for a aqurium cleaning or setup service you have found the right place!">
+    <meta name="author" content="Jace Thompson">
+    <meta name="keywords" content="HTML, CSS, JAVASCRIPT">
+    <link rel="icon" type="image/x-icon" href="C:\Users\money\OneDrive\Desktop\pristineaquaworlds\images\icon.ico">
+    <title>Our Services - Pristine Aqua Worlds</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div id="domain-result"></div>
+  <!-- Include the Resolution library -->
+  <script src="https://cdn.jsdelivr.net/npm/@unstoppabledomains/resolution@latest"></script>
+  <script>
+    // JavaScript to resolve the domain
+    const resolution = new resolution.Resolution();
+
+    async function resolveDomain() {
+      const domain = "apristineaquaworld.com"; // Replace with your Unstoppable Domain
+      try {
+        const ipfsHash = await resolution.ipfsHash(domain);
+        document.getElementById('domain-result').innerText = `Resolved IPFS Hash: ${ipfsHash}`;
+      } catch (error) {
+        document.getElementById('domain-result').innerText = `Error: ${error.message}`;
+      }
+    }
+
+    resolveDomain();
+  </script>
+</body>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Pristine Aqua Worlds Logo">
+                    <h1>Pristine Aqua Worlds</h1>
+                </a>
+            </div>
+            <nav>
+                <button class="menu-toggle" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="ponds-home.html">Ponds</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="emergency-service.html">Emergency</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Customer Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h2>Our Comprehensive Aquarium Services</h2>
+                <p>From initial design and setup to ongoing meticulous maintenance, we provide everything you need for a thriving aquatic environment.</p>
+            </div>
+        </section>
+
+        <section id="setup" class="service-section container">
+            <h3>Professional Tank Setup & Installation</h3>
+            <p>Starting a new aquarium, or upgrading an existing one, can be a complex process. Let Pristine Aqua Worlds handle the intricacies, ensuring a beautiful and healthy foundation for your aquatic life. Choose the setup type that fits your vision:</p>
+            <div class="specialized-services-buttons">
+                <a href="freshwater-setup-service.html" class="btn secondary-btn service-btn"><i class="fas fa-water"></i> Freshwater Tank Setup</a>
+                <a href="saltwater-setup-service.html" class="btn secondary-btn service-btn"><i class="fas fa-fish"></i> Saltwater Tank Setup</a>
+                <a href="custom-setup-service.html" class="btn secondary-btn service-btn"><i class="fas fa-gem"></i> Custom & Specialty Setups</a>
+            </div>
+
+            <div class="pricing-info">
+                <h5>Ready to Start Your Dream Aquarium?</h5>
+                <p>For all new tank setups and installations, we begin with a comprehensive **On-Site Consultation**. This allows us to assess your space, discuss your vision, recommend the perfect tank and equipment, and provide a detailed, accurate quote tailored to your specific project.</p>
+                
+                <div class="pricing-tiers-grid" style="grid-template-columns: 1fr;"> <div class="pricing-tier-card">
+                        <h4>Initial Setup Consultation</h4>
+                        <p class="price-display">Starting from $150</p>
+                        <p>An expert will visit your home to provide personalized recommendations for tank size, filtration, lighting, aquascaping, and compatible livestock. This fee is **fully credited towards your final setup cost** if you proceed with our service.</p>
+                        <a href="YOUR_STRIPE_PAYMENT_LINK_CONSULTATION" class="btn primary-btn">Book Your Consultation Now</a>
+                    </div>
+                </div>
+
+                <p class="note"><em>The consultation fee covers our time and expertise for detailed planning. The actual cost of the tank, equipment, livestock, and additional labor for installation will be part of the final project quote provided after this initial consultation.</em></p>
+            </div>
+        </section>
+            </div>
+
+        <section id="maintenance" class="service-section light-bg container">
+            <h3>Reliable Maintenance Plans</h3>
+            <p>Keep your aquarium sparkling clean and your aquatic inhabitants healthy with our professional, recurring maintenance services. Choose the plan that best fits your needs and schedule:</p>
+
+            <div class="specialized-services-buttons">
+                <a href="weekly-maintenance-plan.html" class="btn secondary-btn service-btn"><i class="fas fa-calendar-week"></i> Weekly Care Plan</a>
+                <a href="bi-weekly-maintenance-plan.html" class="btn secondary-btn service-btn"><i class="fas fa-calendar-alt"></i> Bi-Weekly Care Plan</a>
+                <a href="monthly-maintenance-plan.html" class="btn secondary-btn service-btn"><i class="fas fa-calendar-day"></i> Monthly Care Plan</a>
+            </div>
+
+            <p class="note"><em>Pricing varies based on tank size (gallons), freshwater vs. saltwater, complexity, and specific needs. Detailed inclusions and precise pricing for each plan are available on their respective pages. Minimum charge applies for smaller tanks.</em></p>
+        </section>
+
+        <section id="specialized" class="service-section container">
+            <h3>Specialized & Add-On Services</h3>
+            <p>Beyond our core offerings, we provide a range of specialized services to enhance your aquatic experience. Click on any service to learn more about how we can elevate your "Aqua World."</p>
+            <div class="specialized-services-buttons">
+                <a href="aquascaping-service.html" class="btn secondary-btn service-btn"><i class="fas fa-leaf"></i> Aquascaping & Rescaping</a>
+                <a href="fish-procurement-service.html" class="btn secondary-btn service-btn"><i class="fas fa-fish"></i> Fish & Invertebrate Procurement</a>
+                <a href="ro-di-service.html" class="btn secondary-btn service-btn"><i class="fas fa-water"></i> RO/DI Water & Saltwater Delivery</a>
+                <a href="vacation-care-service.html" class="btn secondary-btn service-btn"><i class="fas fa-suitcase-rolling"></i> Vacation Care</a>
+                <a href="equipment-service.html" class="btn secondary-btn service-btn"><i class="fas fa-tools"></i> Equipment Sales & Installation</a>
+                <a href="troubleshooting-service.html" class="btn secondary-btn service-btn"><i class="fas fa-diagnoses"></i> Troubleshooting & Consulting</a>
+                </div>
+                <a href="plant-care-service.html" class="btn secondary-btn service-btn"><i class="fas fa-leaf"></i> Live Aquatic Plant Care</a>
+                <a href="pond-service.html" class="btn secondary-btn service-btn"><i class="fas fa-water"></i> Pond Maintenance & Setup</a>
+            <p class="note"><em>These services are typically quoted individually based on scope and materials.</em></p>
+        </section>
+
+        <section class="call-to-action-banner">
+            <div class="container">
+                <h3>Ready to Transform Your Aquarium?</h3>
+                <p>Contact Pristine Aqua Worlds today for a personalized consultation and a free, no-obligation quote!</p>
+                <a href="contact.html" class="btn primary-btn">Request Your Quote</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Pristine Aqua Worlds</h4>
+                    <p>Your premier partner for professional aquarium cleaning, setup, and maintenance services.</p>
+                </div>
+                 <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                          <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="ponds-home.html">Ponds</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="emergency-service.html">Emergency</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Customer Login</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-phone-alt"></i> (XXX) XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@pristineaquaworlds.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Serving Page, AZ & Surrounding Areas</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Pristine Aqua Worlds. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Pristine Aqua Worlds</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Pristine Aqua Worlds Logo">
+                    <h1>Pristine Aqua Worlds</h1>
+                </a>
+            </div>
+            <nav>
+                <button class="menu-toggle" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="ponds-home.html">Ponds</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="emergency-service.html">Emergency</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Customer Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h2>Contact Pristine Aqua Worlds</h2>
+                <p>Ready for a cleaner, healthier, and more beautiful aquarium? Let's connect!</p>
+            </div>
+        </section>
+
+        <section class="contact-section container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p>We're here to answer your questions and provide expert advice for your aquatic needs.</p>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Call Us</h4>
+                            <p><a href="tel:+15201234567">(520) 123-4567</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p><a href="mailto:info@pristineaquaworlds.com">info@pristineaquaworlds.com</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Service Area</h4>
+                            <p>Serving Page, AZ & Surrounding Communities</p>
+                            <p class="service-cities">Including: Kanab UT, Flagstaff AZ, St. George UT</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Business Hours</h4>
+                            <p>Monday - Friday: 9:00 AM - 5:00 PM MST</p>
+                            <p>Saturday - Sunday: Closed (Emergency services may be available by prior arrangement)</p>
+                        </div>
+                    </div>
+                    <div class="social-links-contact">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <h3>Send Us a Message</h3>
+                    <p>Fill out the form below, and we'll get back to you promptly to discuss your aquarium needs and provide a free quote.</p>
+                    <form action="https://formspree.io/f/mnnvgpjb" method="POST" class="contact-form">
+                          <input type="hidden" name="_next" value="https://www.yourdomain.com/thanks.html" /> 
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number (Optional)</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="service-type">Preferred Service Type</label>
+                            <select id="service-type" name="service_type" required>
+                                <option value="">Select a Service</option>
+                                <option value="tank_setup">New Tank Setup</option>
+                                <option value="maintenance_plan">Regular Maintenance Plan</option>
+                                <option value="aquascaping">Aquascaping</option>
+                                <option value="troubleshooting">Troubleshooting/Consultation</option>
+                                <option value="other">Other Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary-btn">Send Message</button>
+                    </form>
+                    <p class="form-note">
+                        **Note:** This form is for display purposes. To make it functional, you will need a backend solution (e.g., a server-side script, a form-submission service like Formspree or Netlify Forms).
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Pristine Aqua Worlds</h4>
+                    <p>Your premier partner for professional aquarium cleaning, setup, and maintenance services.</p>
+                </div>
+                 <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                          <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="ponds-home.html">Ponds</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="emergency-service.html">Emergency</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Customer Login</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-phone-alt"></i> (XXX) XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@pristineaquaworlds.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Serving Page, AZ & Surrounding Areas</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Pristine Aqua Worlds. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Pristine Aqua Worlds</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic Admin Specific Styles (can be moved to a separate admin.css) */
+        .admin-dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .admin-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .admin-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .admin-card p {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+        .admin-section {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        .admin-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+        .admin-table-container {
+            overflow-x: auto; /* For responsive tables */
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        .admin-table th, .admin-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .admin-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        .admin-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .admin-table tr:hover {
+            background-color: #f8f8f8;
+        }
+        .admin-action-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-right: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .admin-action-btn:hover {
+            background-color: #218838;
+        }
+        .admin-action-btn.delete {
+            background-color: #dc3545;
+        }
+        .admin-action-btn.delete:hover {
+            background-color: #c82333;
+        }
+        .admin-add-form {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px dashed var(--secondary-color);
+            border-radius: 8px;
+            background-color: var(--light-color);
+        }
+        .admin-add-form .form-group {
+            margin-bottom: 15px;
+        }
+        .admin-add-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .admin-add-form input, .admin-add-form textarea, .admin-add-form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        .admin-add-form button {
+            margin-top: 15px;
+        }
+        #adminMessage {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Pristine Aqua Worlds Logo">
+                    <h1>Pristine Aqua Worlds</h1>
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Public Site</a></li>
+                    <li><a href="admin-dashboard.html" class="active">Admin Dashboard</a></li>
+                    <li><a href="#" id="adminLogoutBtn">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h2>Admin Dashboard</h2>
+                <p>Manage users, customer data, and website content.</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="admin-dashboard-grid">
+                <div class="admin-card">
+                    <h4>Total Users</h4>
+                    <p id="totalUsers">Loading...</p>
+                </div>
+                <div class="admin-card">
+                    <h4>Customer Profiles</h4>
+                    <p id="totalCustomerData">Loading...</p>
+                </div>
+                </div>
+
+            <div class="admin-section">
+                <h3>Manage Customer Data</h3>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>User Email</th>
+                                <th>Tank Name</th>
+                                <th>Size (Gal)</th>
+                                <th>Type</th>
+                                <th>Last Service</th>
+                                <th>Next Service</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customerDataTable">
+                            <tr><td colspan="7">Loading customer data...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="admin-add-form">
+                    <h4>Add/Update Customer Data</h4>
+                    <form id="customerDataForm">
+                        <div class="form-group">
+                            <label for="formUserId">User ID (Required for new or existing)</label>
+                            <input type="text" id="formUserId" placeholder="MongoDB User ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="formTankName">Tank Name</label>
+                            <input type="text" id="formTankName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="formTankSize">Tank Size (Gallons)</label>
+                            <input type="number" id="formTankSize" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="formTankType">Tank Type</label>
+                            <select id="formTankType" required>
+                                <option value="">Select Type</option>
+                                <option value="Freshwater">Freshwater</option>
+                                <option value="Saltwater">Saltwater</option>
+                                <option value="Pond">Pond</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="formLastService">Last Service Date (YYYY-MM-DD)</label>
+                            <input type="date" id="formLastService">
+                        </div>
+                        <div class="form-group">
+                            <label for="formNextService">Next Service Date (YYYY-MM-DD)</label>
+                            <input type="date" id="formNextService">
+                        </div>
+                        <div class="form-group">
+                            <label for="formNotes">Notes</label>
+                            <textarea id="formNotes" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn primary-btn" id="submitCustomerData">Save Customer Data</button>
+                    </form>
+                    <p id="adminMessage" style="color: green;"></p>
+                </div>
+            </div>
+
+            </section>
+    </main>
+
+    <footer>
+        </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const adminToken = localStorage.getItem('adminToken');
+            if (!adminToken) {
+                window.location.href = 'admin-login.html'; // Redirect if not logged in as admin
+                return;
+            }
+
+            const totalUsersDisplay = document.getElementById('totalUsers');
+            const totalCustomerDataDisplay = document.getElementById('totalCustomerData');
+            const customerDataTable = document.getElementById('customerDataTable');
+            const adminMessage = document.getElementById('adminMessage');
+            const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+            const customerDataForm = document.getElementById('customerDataForm');
+
+            adminLogoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('adminToken');
+                window.location.href = 'admin-login.html';
+            });
+
+            async function fetchAdminStats() {
+                try {
+                    const res = await fetch('/api/admin/dashboard-stats', {
+                        headers: { 'x-auth-token': adminToken }
+                    });
+                    if (res.ok) {
+                        const stats = await res.json();
+                        totalUsersDisplay.textContent = stats.totalUsers;
+                        totalCustomerDataDisplay.textContent = stats.totalCustomersWithData;
+                    } else if (res.status === 403 || res.status === 401) {
+                        alert('Access denied. Please log in as an administrator.');
+                        localStorage.removeItem('adminToken');
+                        window.location.href = 'admin-login.html';
+                    } else {
+                        console.error('Failed to fetch admin stats:', await res.text());
+                        totalUsersDisplay.textContent = 'Error';
+                        totalCustomerDataDisplay.textContent = 'Error';
+                    }
+                } catch (err) {
+                    console.error('Network error fetching admin stats:', err);
+                    totalUsersDisplay.textContent = 'Error';
+                    totalCustomerDataDisplay.textContent = 'Error';
+                }
+            }
+
+            async function fetchCustomerData() {
+                try {
+                    const res = await fetch('/api/admin/customerdata', {
+                        headers: { 'x-auth-token': adminToken }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        customerDataTable.innerHTML = ''; // Clear existing data
+
+                        if (data.length === 0) {
+                            customerDataTable.innerHTML = '<tr><td colspan="7">No customer data available.</td></tr>';
+                            return;
+                        }
+
+                        data.forEach(customer => {
+                            const row = customerDataTable.insertRow();
+                            row.innerHTML = `
+                                <td>${customer.user ? customer.user.email : 'N/A (User Deleted)'}</td>
+                                <td>${customer.tankName}</td>
+                                <td>${customer.tankSize}</td>
+                                <td>${customer.tankType}</td>
+                                <td>${customer.lastServiceDate ? new Date(customer.lastServiceDate).toLocaleDateString() : 'N/A'}</td>
+                                <td>${customer.nextServiceDate ? new Date(customer.nextServiceDate).toLocaleDateString() : 'N/A'}</td>
+                                <td>
+                                    <button class="admin-action-btn edit-btn" data-id="${customer._id}">Edit</button>
+                                    <button class="admin-action-btn delete delete-btn" data-id="${customer._id}">Delete</button>
+                                    </td>
+                            `;
+                        });
+
+                        // Add event listeners for edit/delete buttons
+                        customerDataTable.querySelectorAll('.edit-btn').forEach(btn => {
+                            btn.addEventListener('click', (e) => loadCustomerDataForEdit(e.target.dataset.id));
+                        });
+                        customerDataTable.querySelectorAll('.delete-btn').forEach(btn => {
+                            btn.addEventListener('click', (e) => deleteCustomerData(e.target.dataset.id));
+                        });
+
+                    } else if (res.status === 403 || res.status === 401) {
+                         alert('Access denied. Please log in as an administrator.');
+                         localStorage.removeItem('adminToken');
+                         window.location.href = 'admin-login.html';
+                    } else {
+                        console.error('Failed to fetch customer data:', await res.text());
+                        customerDataTable.innerHTML = '<tr><td colspan="7">Failed to load data.</td></tr>';
+                    }
+                } catch (err) {
+                    console.error('Network error fetching customer data:', err);
+                    customerDataTable.innerHTML = '<tr><td colspan="7">Failed to load data.</td></tr>';
+                }
+            }
+
+            async function loadCustomerDataForEdit(id) {
+                // Fetch specific customer data to populate the form for editing
+                try {
+                    const res = await fetch(`/api/admin/customerdata/${id}`, {
+                        headers: { 'x-auth-token': adminToken }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        // Populate form fields
+                        document.getElementById('formUserId').value = data.user._id || ''; // User ID
+                        document.getElementById('formTankName').value = data.tankName;
+                        document.getElementById('formTankSize').value = data.tankSize;
+                        document.getElementById('formTankType').value = data.tankType;
+                        document.getElementById('formLastService').value = data.lastServiceDate ? new Date(data.lastServiceDate).toISOString().split('T')[0] : '';
+                        document.getElementById('formNextService').value = data.nextServiceDate ? new Date(data.nextServiceDate).toISOString().split('T')[0] : '';
+                        document.getElementById('formNotes').value = data.notes;
+                        // Set a hidden input to store the ID of the data being edited
+                        document.getElementById('customerDataForm').dataset.editId = data._id;
+                        adminMessage.textContent = 'Data loaded for editing.';
+                        adminMessage.style.color = 'blue';
+                    } else {
+                        adminMessage.textContent = 'Failed to load data for editing.';
+                        adminMessage.style.color = 'red';
+                    }
+                } catch (err) {
+                    console.error('Error loading data for edit:', err);
+                    adminMessage.textContent = 'Error loading data.';
+                    adminMessage.style.color = 'red';
+                }
+            }
+
+            async function deleteCustomerData(id) {
+                if (!confirm('Are you sure you want to delete this customer data?')) {
+                    return;
+                }
+                try {
+                    const res = await fetch(`/api/admin/customerdata/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'x-auth-token': adminToken }
+                    });
+                    if (res.ok) {
+                        adminMessage.textContent = 'Customer data deleted successfully.';
+                        adminMessage.style.color = 'green';
+                        fetchCustomerData(); // Refresh table
+                        fetchAdminStats(); // Refresh stats
+                    } else {
+                        adminMessage.textContent = 'Failed to delete customer data.';
+                        adminMessage.style.color = 'red';
+                    }
+                } catch (err) {
+                    console.error('Error deleting customer data:', err);
+                    adminMessage.textContent = 'Error deleting data.';
+                    adminMessage.style.color = 'red';
+                }
+            }
+
+
+            customerDataForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const editId = customerDataForm.dataset.editId; // Check if we are editing
+                const method = editId ? 'PUT' : 'POST';
+                const url = editId ? `/api/admin/customerdata/${editId}` : '/api/admin/customerdata';
+
+                const customerData = {
+                    userId: document.getElementById('formUserId').value,
+                    tankName: document.getElementById('formTankName').value,
+                    tankSize: document.getElementById('formTankSize').value,
+                    tankType: document.getElementById('formTankType').value,
+                    lastServiceDate: document.getElementById('formLastService').value,
+                    nextServiceDate: document.getElementById('formNextService').value,
+                    notes: document.getElementById('formNotes').value
+                };
+
+                try {
+                    const res = await fetch(url, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-auth-token': adminToken
+                        },
+                        body: JSON.stringify(customerData)
+                    });
+
+                    if (res.ok) {
+                        adminMessage.textContent = `Customer data ${editId ? 'updated' : 'added'} successfully!`;
+                        adminMessage.style.color = 'green';
+                        customerDataForm.reset(); // Clear form
+                        delete customerDataForm.dataset.editId; // Remove edit ID
+                        fetchCustomerData(); // Refresh table
+                        fetchAdminStats(); // Refresh stats
+                    } else {
+                        adminMessage.textContent = `Failed to ${editId ? 'update' : 'add'} customer data: ${await res.text()}`;
+                        adminMessage.style.color = 'red';
+                    }
+                } catch (err) {
+                    console.error('Error submitting customer data:', err);
+                    adminMessage.textContent = 'An error occurred during submission.';
+                    adminMessage.style.color = 'red';
+                }
+            });
+
+            // Initial data fetch
+            fetchAdminStats();
+            fetchCustomerData();
+        });
+    </script>
+</body>
+</html>

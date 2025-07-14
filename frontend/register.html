@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Pristine Aqua Worlds</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Pristine Aqua Worlds Logo">
+                    <h1>Pristine Aqua Worlds</h1>
+                </a>
+            </div>
+            <nav>
+                <button class="menu-toggle" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="ponds-home.html">Ponds</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="emergency-service.html">Emergency</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Customer Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h2>Create Your Account</h2>
+                <p>Register with Pristine Aqua Worlds to track your services and manage your aquariums.</p>
+            </div>
+        </section>
+
+        <section class="contact-section container">
+            <div class="contact-form-container">
+                <h3>Join Our Community</h3>
+                <form id="registerForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="btn primary-btn">Register</button>
+                    <p style="margin-top: 15px; text-align: center;">Already have an account? <a href="login.html">Login here</a></p>
+                    <p id="registerMessage" style="color: red; text-align: center; margin-top: 10px;"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Pristine Aqua Worlds</h4>
+                    <p>Your premier partner for professional aquarium cleaning, setup, and maintenance services.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                          <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="ponds-home.html">Ponds</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="emergency-service.html">Emergency</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Customer Login</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-phone-alt"></i> (XXX) XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@pristineaquaworlds.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Serving LeChee, Arizona & Surrounding Areas</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Pristine Aqua Worlds. All rights reserved.</p>
+                <p class="company-tagline">A Proud Member of Everflow Aquatics Holding, part of Thompson Enrichment Collective.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const registerForm = document.getElementById('registerForm');
+            const registerMessage = document.getElementById('registerMessage');
+
+            registerForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevent default form submission
+
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                if (password !== confirmPassword) {
+                    registerMessage.style.color = 'red';
+                    registerMessage.textContent = 'Passwords do not match.';
+                    return;
+                }
+
+                try {
+                    const res = await fetch('/api/auth/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ username, email, password })
+                    });
+
+                    const data = await res.json();
+
+                    if (res.ok) {
+                        localStorage.setItem('token', data.token); // Store JWT
+                        registerMessage.style.color = 'green';
+                        registerMessage.textContent = data.msg + ' Redirecting to dashboard...';
+                        window.location.href = 'customer-dashboard.html'; // Redirect to dashboard
+                    } else {
+                        registerMessage.style.color = 'red';
+                        registerMessage.textContent = data.msg || 'Registration failed. Please try again.';
+                    }
+                } catch (err) {
+                    console.error('Error during registration:', err);
+                    registerMessage.style.color = 'red';
+                    registerMessage.textContent = 'An error occurred. Please try again later.';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
